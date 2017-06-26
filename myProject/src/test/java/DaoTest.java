@@ -13,5 +13,6 @@ public class DaoTest {
         TestDao dao = con.getBean(TestDao.class);
         List<Map> mapList = dao.selectAll();
         System.out.println(mapList.size());
+
     }
 }
