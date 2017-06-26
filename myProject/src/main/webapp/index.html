@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>柱状图</title>
+   <!-- 1.导入图表js脚本-->
+    <script src="js/echarts.min.js"></script>
+    <script src="js/jquery-3.2.1.js"></script>
+</head>
+<body>
+<!--2.指定图表显示位置-->
+<div id="content" style="height: 400px;width: 500px">
+
+</div>
+<!--3.执行创建图表脚本代码-->
+<script>
+   /* echarts 图表组件提供的工具类
+    init(标签对象) 创建图表对象并将显示绑定到标签对象上*/
+    var myChart = echarts.init(document.getElementById('content'));
+
+
+
+   $.get("/test",function (data) {
+       var salesList=data.salesList;
+       var profitList=data.profitList;
+       foo(salesList,profitList);
+   })
+   /*销量数据 salesList
+    利润数据 profitList*/
+   function foo (salesList,profitList) {
+       // 指定图表的配置项和数据
+       var option = {
+           /*title 图表的标题说明*/
+           title: {
+               /*   text 标题的文字说明*/
+               text: 'xx商城销售额统计'
+           },
+           tooltip: {},
+           /*图表的分类*/
+           legend: {
+               /* 分类的具体元素*/
+               data:['销量',"利润"]
+           },
+           /*x轴说明*/
+           xAxis: {
+               /* x轴具体说明数据*/
+               data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+           },
+           yAxis: {},
+           /*图表的数据集*/
+           /*type 设定图表显示类型  bar柱状图 line折线图*/
+           series: [{
+               name: '销量',
+               type: 'bar',
+               data: salesList
+           },
+               {
+                   name:"利润",
+                   type:"line",
+                   data:profitList
+               }]
+       };
+       // 使用刚指定的配置项和数据显示图表。
+       myChart.setOption(option);
+   }
+
+
+</script>
+</body>
+</html>
